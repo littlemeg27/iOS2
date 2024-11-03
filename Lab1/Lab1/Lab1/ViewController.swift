@@ -30,6 +30,11 @@ class ViewController: UIViewController
             {
                 print(error.localizedDescription)
             }
+            for movie in movies
+            {
+                movie.printMovie()
+            }
+            
         }
     }
 
@@ -46,7 +51,7 @@ class ViewController: UIViewController
                 let movieActors = object["actors"] as? [String]
                         else { continue }
                 
-                
+                movie.append(Movies(title: movieTitle, genre: movieGenre, year: movieYear, actors: movieActors))
             }
         }
     }
