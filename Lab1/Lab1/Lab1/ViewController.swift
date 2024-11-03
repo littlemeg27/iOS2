@@ -39,10 +39,14 @@ class ViewController: UIViewController
         {
             for firstItem in jsonObject
             {
-                if let object = firstItem as? [String: Any]
-                {
-                    print(object)
-                }
+                guard let object = firstItem as? [String: Any],
+                let movieTitle = object["title"] as? String,
+                let movieYear = object["year"] as? String,
+                let movieGenre = object["genre"] as? String,
+                let movieActors = object["actors"] as? [String]
+                        else { continue }
+                
+                
             }
         }
     }
