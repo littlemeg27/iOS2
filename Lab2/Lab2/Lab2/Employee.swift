@@ -7,6 +7,18 @@
 
 import Foundation
 
+class PastEmployer
+{
+    let company: String
+    let responsibilities: [String]
+    
+    init(company: String, responsibilities: [String])
+    {
+        self.company = company
+        self.responsibilities = responsibilities
+    }
+}
+
 class Employee
 {
     let employeename: String
@@ -14,37 +26,34 @@ class Employee
     let macaddress: String
     let current_title: String
     let skills: [String]
-    let past_employers: [String]
-    let company: String
-    let responsibilities: String
-    
+    let past_employers: [PastEmployer]
+
     var employeeEmployeename: String
     {
-        get { return "\(employeename)"}
+        return employeename
     }
     var employeeUsername: String
     {
-        get { return "\(username)"}
+        return username
     }
     var employeeMacaddress: String
     {
-        get { return "\(macaddress)"}
+        return macaddress
     }
-    var employeeCurrent_title: String
+    var employeeCurrentTitle: String
     {
-        get { return "\(current_title)"}
+        return current_title
     }
     var employeeSkills: String
     {
-        get { return skills.count.description}
+        return skills.count.description
     }
-    var employeePast_employers: String
+    var employeePastEmployersCount: String
     {
-        get { return past_employers.count.description}
+        return past_employers.count.description
     }
-    
-    
-    init(employeename: String, username: String, macaddress: String, current_title: String, skills: [String], past_employers: [String])
+
+    init(employeename: String, username: String, macaddress: String, current_title: String, skills: [String], past_employers: [PastEmployer])
     {
         self.employeename = employeename
         self.username = username
@@ -53,16 +62,27 @@ class Employee
         self.skills = skills
         self.past_employers = past_employers
     }
-    
-    func printMovie()
+
+    func printEmployee()
     {
-        var printString: String = "Name: \(employeeEmployeename) Username: \(employeeUsername) Macaddress: \(employeeMacaddress)\" Title: \(employeeCurrent_title) Skills:"
+        var printString = """
+        Name: \(employeeEmployeename)
+        Username: \(employeeUsername)
+        MAC Address: \(employeeMacaddress)
+        Title: \(employeeCurrentTitle)
+        Skills: \(skills.joined(separator: ", "))
+        Past Employers:
+        """
         
-        for Employee in Employees
+        for (index, employer) in past_employers.enumerated()
         {
-            printString += "\n\(skills)"
+            printString += "\n  Employer #\(index + 1): \(employer.company)"
+            printString += "\n  Responsibilities (\(employer.responsibilities.count)):"
+            for responsibility in employer.responsibilities
+            {
+                printString += "\n    - \(responsibility)"
+            }
         }
         print(printString)
     }
 }
-
