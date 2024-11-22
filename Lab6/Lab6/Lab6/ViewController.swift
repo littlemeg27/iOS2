@@ -125,6 +125,62 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     {
         // Handle cell selection if necessary
     }
+    
+    func setupToolbar()
+    {
+        let toolbar = UIToolbar()
+        toolbar.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(toolbar)
+
+        let themeButton = UIBarButtonItem(title: "Theme", style: .plain, target: self, action: #selector(openThemeOptions))
+        let subredditsButton = UIBarButtonItem(title: "Subreddits", style: .plain, target: self, action: #selector(openSubredditsOptions))
+        let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+
+        toolbar.items = [themeButton, flexSpace, subredditsButton]
+
+        NSLayoutConstraint.activate([
+            toolbar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            toolbar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            toolbar.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+    }
+
+    @objc func openThemeOptions()
+    {
+        performSegue(withIdentifier: "ShowThemeOptions", sender: self)
+    }
+
+    @objc func openSubredditsOptions()
+    {
+        performSegue(withIdentifier: "ShowSubredditsOptions", sender: self)
+    }
+    
+    override func viewDidAppear(_ animated: Bool)
+    {
+        super.viewDidAppear(animated)
+        applyThemePreferences()
+        reloadSubreddits()
+    }
+
+    func applyThemePreferences()
+    {
+        tableView.backgroundColor = UserDefaults.standard.color(forKey: "TableViewColor") ?? .white
+        tableView.reloadData()
+    }
+
+    func reloadSubreddits()
+    {
+        let subreddits = UserDefaults.standard.stringArray(forKey: "Subreddits") ?? ["iphone"]
+        posts.removeAll()
+
+        for subreddit in subreddits
+        {
+            if let url = URL(string: "https://www.reddit.com/r/\(subreddit)/.json")
+            {
+                getData(from: url, session: URLSession.shared)
+            }
+        }
+    }
 }
 
 class RedditPost
