@@ -91,31 +91,15 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int // UITableViewDataSource method to provide the number of rows
     {
-        return posts.count  // Return the count of posts
+        return posts.count  // Return the count 
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "PostCell", for: indexPath) as! DetailViewController
+        let cell = tableView.dequeueReusableCell(withIdentifier: "PostCell", for: indexPath) as! MemberTableViewCell
         let member = posts[indexPath.row]
 
         cell.titleLabel.text = "\(member.firstName) \(member.lastName)"
-        cell.subtitleLabel.text = "\(member.title) - \(member.party)"
-
-        if let imageUrl = URL(string: "https://api.congress.gov/members/\(member.id)/image/225x275") // Asynchronously load images
-        {
-            DispatchQueue.global().async
-            {
-                if let data = try? Data(contentsOf: imageUrl)
-                {
-                    DispatchQueue.main.async
-                    {
-                        cell.thumbnailImageView.image = UIImage(data: data)
-                    }
-                }
-            }
-        }
-
         return cell
     }
 

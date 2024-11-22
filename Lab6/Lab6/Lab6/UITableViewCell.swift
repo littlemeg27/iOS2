@@ -1,16 +1,16 @@
 //
-//  MemberTableViewCell.swift
-//  Lab5
+//  UITableViewCell.swift
+//  Lab4
 //
-//  Created by Brenna Pavlinchak on 11/18/24.
+//  Created by Brenna Pavlinchak on 11/13/24.
 //
 
 import UIKit
 
-class MemberTableViewCell: UITableViewCell
+class PostTableViewCell: UITableViewCell
 {
     @IBOutlet weak var titleLabel: UILabel!  // Label for post title
-    @IBOutlet weak var thumbnailImageView: UIImageView!
+    @IBOutlet weak var thumbnailImageView: UIImageView!  // ImageView for post thumbnail
 
     override func awakeFromNib()
     {

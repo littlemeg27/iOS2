@@ -15,7 +15,7 @@ class DetailViewController: UIViewController
     @IBOutlet weak var stateLabel: UILabel!
     @IBOutlet weak var imageView: UIImageView!
     
-    var member: Congress?
+    var member: Member?
     
     override func viewDidLoad()
     {
@@ -37,7 +37,14 @@ class DetailViewController: UIViewController
                 {
                     DispatchQueue.main.async
                     {
-                        self.imageView.image = UIImage(data: data)
+                        cell.thumbnailImageView.image = UIImage(data: data)
+                    }
+                }
+                else
+                {
+                    DispatchQueue.main.async
+                    {
+                        cell.thumbnailImageView.image = UIImage(named: "placeholder") // Use a placeholder image
                     }
                 }
             }
