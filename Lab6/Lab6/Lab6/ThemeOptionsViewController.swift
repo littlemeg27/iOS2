@@ -48,16 +48,14 @@ class ThemeOptionsViewController: UIViewController
     }
 }
 
-
-Custom UserDefaults Extension:
-
 extension UserDefaults
 {
     func setColor(_ color: UIColor?, forKey key: String)
     {
         if let color = color
         {
-            set(try? NSKeyedArchiver.archivedData(withRootObject: color, requiringSecureCoding: false), forKey: key)
+            let colorData = try? NSKeyedArchiver.archivedData(withRootObject: color, requiringSecureCoding: false)
+            set(colorData, forKey: key)
         }
     }
     
@@ -65,8 +63,9 @@ extension UserDefaults
     {
         if let data = data(forKey: key)
         {
-            return try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? UIColor
+            return try? NSKeyedUnarchiver.unarchivedObject(ofClass: UIColor.self, from: data)
         }
         return nil
     }
 }
+

@@ -55,7 +55,7 @@ class SubredditsOptionsViewController: UIViewController, UITableViewDelegate, UI
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "SubredditCell", for: indexPath)!
+        let cell = tableView.dequeueReusableCell(withIdentifier: "SubredditCell", for: indexPath)
         cell.textLabel?.text = subreddits[indexPath.row]
         return cell
     }
